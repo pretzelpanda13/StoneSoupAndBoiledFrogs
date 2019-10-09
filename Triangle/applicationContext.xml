@@ -1,0 +1,53 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <bean id="Triangle" class="com.geometry.shape.Triangle" init-method="init">
+      <constructor-arg index="0" value="TriangleName" />
+      <constructor-arg index="1" value="TriangleType"/>
+       <property name="A" ref="PointA" />
+       <property name="B" ref="PointB" />
+       <property name="C" ref="PointC" />
+   </bean>    
+   <bean id="Square" class="com.geometry.shape.Square" init-method="init">
+   	   <property name="points">
+   	   	<list>
+   	    	<ref bean="PointA"/>
+   	    	<ref bean="PointB"/>
+   	    	<ref bean="PointC"/>
+   	    	<bean id="PointD" class="com.geometry.shape.Point">
+   	    		<property name="x" value="5"/>
+   	    		<property name="y" value="0"/>
+   	    	</bean> 
+   	   	</list>
+   	   </property>
+   </bean>
+   
+   <bean id="PointA" class="com.geometry.shape.Point">
+         <property name="x" value="${pointA.X}"/>
+         <property name="y" value="${pointA.Y}"/>
+   </bean>
+   
+   <bean id="PointB" class="com.geometry.shape.Point">
+   		 <property name="x" value="0"/>
+         <property name="y" value="10"/>
+   </bean>
+   <bean id="PointC" class="com.geometry.shape.Point">
+   		 <property name="x" value="5"/>
+         <property name="y" value="10"/>
+   </bean>
+   
+    <bean id="PointE" class="com.geometry.shape.Point" scope="prototype">
+   		 <property name="x" value="5"/>
+         <property name="y" value="10"/>
+   </bean>
+   <bean class="com.geometry.shape.BeanPostProcessorClass"/>
+   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   	<property name="locations" value="pointConfigurer.properties"/>
+   </bean>
+    <bean
+   	class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor">
+   </bean>
+</beans>
+	
